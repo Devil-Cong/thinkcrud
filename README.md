@@ -87,4 +87,54 @@ LIKE            |模糊查询        |
 [NOT] BETWEEN   |( 不在 )区间查询|  
 [NOT] IN        |( 不在 )IN 查询 | 
 
+``` javascript
+var map = {
+	name: 'Leon',
+	class: 12,
+	order_no: '20160325094353017859'，
+	title: ['like', '%test%'],
+    status: ['in', [1, 2, 3] ],
+    date: ['between', ['2015-01-01','2016-01-01']],
+    age: ['lt', 20],
+    sex: ['neq', '男'],
+	_logic: 'OR' // 默认为 AND
+};
+order.where( map ).select(function(err, rows, fields){
+
+})
+```
+
+其实际执行的 SQL 语句
+
+	SELECT * FROM sp_order WHERE ( name = 'Leon' ) OR ( class = 12 ) OR ( order_no = '20160325094353017859' ) OR ( title LIKE %课程% ) OR ( status IN (1, 2, 3) ) OR ( date BRTWEEN '2015-01-01' AND '2016-01-01' ) OR ( age < 20 ) OR ( sex <> '男' );
+
+当然也可以通常设置 where() 参数中的 _string 属性，直接配置条件
+
+``` javascript
+var map = {
+	name: 'Leon',
+	class: 12,
+	order_no: '20160325094353017859'，
+	title: ['like', '%test%'],
+    status: ['in', [1, 2, 3] ],
+    date: ['between', ['2015-01-01','2016-01-01']],
+    age: ['lt', 20],
+    sex: ['neq', '男'],
+    _string: 'good_id = 7 AND count > 200',
+	_logic: 'OR' // 默认为 AND
+};
+order.where( map ).select(function(err, rows, fields){
+
+})
+```
+
+其实际执行的 SQL 语句
+
+	SELECT * FROM sp_order WHERE ( name = 'Leon' ) OR ( class = 12 ) OR ( order_no = '20160325094353017859' ) OR ( title LIKE %课程% ) OR ( status IN (1, 2, 3) ) OR ( date BRTWEEN '2015-01-01' AND '2016-01-01' ) OR ( age < 20 ) OR ( sex <> '男' ) OR ( good_id = 7 AND count > 200 );
+
+
+
+
+
+
 
