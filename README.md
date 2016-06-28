@@ -20,4 +20,7 @@ var pool = mysql.createPool({
     password: '123456',
     database: 'sports'
 });
+var order = thinkcrud(pool, 'sp_order'); // sp_order 是数据库对应的表名
 ```
+
+这样子就简单地将一个表转换为一个对应的操作对象。
