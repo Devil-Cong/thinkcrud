@@ -67,4 +67,5 @@ order.where( map ).select(function(err, rows, fields){
 ```
 
 其实际执行的 SQL 语句
+
 	SELECT * FROM sp_order WHERE ( name = 'Leon' ) OR ( class = 12 ) OR ( order_no = '20160325094353017859' );
