@@ -1,7 +1,7 @@
 {
   "name": "thinkcrud",
   "version": "1.0.0",
-  "description": "",
+  "description": "一个类似于 ThinkPHP 可协助我们快速组织 SQL 语句，操作数据库的插件",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
