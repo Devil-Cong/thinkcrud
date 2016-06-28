@@ -1,0 +1,22 @@
+{
+  "name": "thinkcrud",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Devil-Cong/thinkcrud.git"
+  },
+  "keywords": [
+    "mysql", "thinkphp", "crud"
+  ],
+  "author": "Leon",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Devil-Cong/thinkcrud/issues"
+  },
+  "homepage": "https://github.com/Devil-Cong/thinkcrud#readme"
+}
