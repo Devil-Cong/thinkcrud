@@ -4,7 +4,7 @@
 
 ### 安装
 
-		npm install thinkcrud
+	npm install thinkcrud
 
 ### 使用
  
