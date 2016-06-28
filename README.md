@@ -102,7 +102,7 @@ order.where( map ).select(function(err, rows, fields){
 
 其实际执行的 SQL 语句
 
-	SELECT * FROM sp_order WHERE ( title LIKE %课程% ) OR ( status IN (1, 2, 3) ) OR ( date BRTWEEN '2015-01-01' AND '2016-01-01' ) OR ( age < 20 );
+	SELECT * FROM sp_order WHERE ( title LIKE %课程% ) OR ( status IN (1, 2, 3) ) OR ( date BETWEEN '2015-01-01' AND '2016-01-01' ) OR ( age < 20 );
 
 当然也可以通常设置 where() 参数中的 _string 属性，直接配置条件
 
@@ -121,8 +121,25 @@ order.where( map ).select(function(err, rows, fields){
 
 	SELECT * FROM sp_order WHERE ( age < 20 ) OR ( sex <> '男' ) OR ( good_id = 7 AND count > 200 );
 
+#### field() 字段过滤
 
+可通过执行 field() 来过滤所要查询的字段，默认不执行该方法为查询所有字段 ( SELECT * ) ,同时也可使用 SQL 函数
 
+``` javascript
+var map = {
+	name: 'Leon',
+	class: 12
+};
+order.field('name, MAX(age)').where( map ).select(function(err, rows, fields){
+
+})
+```
+
+其实际执行的 SQL 语句
+
+	SELECT name, MAX(age) FROM sp_order WHERE ( name = 'Leon' ) AND ( class = 12 );
+
+#### limit()、order()、group()
 
 
 
