@@ -75,7 +75,16 @@ order.where( map ).select(function(err, rows, fields){
 
 同时也支持表达式条件
 
-表达式 | 含义     | 协助记忆
--------|----------|----------
-EQ     |等于( = ) |equal
--------|----------|----------
+表达式          | 含义           | 协助记忆
+:--------------:|:--------------:|:------------------:
+EQ              |等于( = )       |equal
+NEQ             |不等于( <> )    |not equal 
+GT              |大于( > )       |greater 
+EGT             |大于等于( >= )  |equal or greater 
+LT              |小于( < )       |less than 
+ELT             |小于等于( <= )  |equal or less than 
+LIKE            |模糊查询        |
+[NOT] BETWEEN   |( 不在 )区间查询|  
+[NOT] IN        |( 不在 )IN 查询 | 
+
+
