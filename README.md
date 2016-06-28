@@ -4,7 +4,7 @@
 
 ### 安装
 
-	npm install thinkcrud
+		npm install thinkcrud
 
 ### 使用
 
@@ -36,7 +36,7 @@ order.select(function(err, rows, fields){
 ```
 
 其实际执行的 SQL 语句
-	SELECT * FROM sp_order;
+		SELECT * FROM sp_order;
 
 #### where() 条件
 ``` javascript
@@ -51,7 +51,7 @@ order.where( map ).select(function(err, rows, fields){
 ```
 
 其实际执行的 SQL 语句
-	SELECT * FROM sp_order WHERE ( name = 'Leon' ) AND ( class = 12 ) AND ( order_no = '20160325094353017859' );
+		SELECT * FROM sp_order WHERE ( name = 'Leon' ) AND ( class = 12 ) AND ( order_no = '20160325094353017859' );
 
 若设置 where() 参数中 _logic 属性，则可更改逻辑连接词
 
@@ -68,4 +68,4 @@ order.where( map ).select(function(err, rows, fields){
 ```
 
 其实际执行的 SQL 语句
-	SELECT * FROM sp_order WHERE ( name = 'Leon' ) OR ( class = 12 ) OR ( order_no = '20160325094353017859' );
+		SELECT * FROM sp_order WHERE ( name = 'Leon' ) OR ( class = 12 ) OR ( order_no = '20160325094353017859' );
