@@ -8,7 +8,7 @@
 
 ### 使用
 
-	首先你要先在 node.js 里面引入 mysql ，同时创建连接池。
+	首先你要先在 node.js 里面引入 mysql ，同 时创建连接池。
 
 ``` javascript
 var mysql = require('mysql');
@@ -24,5 +24,5 @@ var order = thinkcrud(pool, 'sp_order'); // sp_order 是数据库对应的表名
 ```
 
 这样子就简单地将一个表转换为一个对应的操作对象。
-
+####
 * 查询
