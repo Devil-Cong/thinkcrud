@@ -24,4 +24,48 @@ var order = thinkcrud(pool, 'sp_order'); // sp_order 是数据库对应的表名
 ```
 
 这样子就简单地将一个表转换为一个对应的操作对象。
-#### 1、查询
+
+#### select() 查询
+
+``` javascript
+order.select(function(err, rows, fields){
+	// err 为 SQL 执行错误
+	// rows 为查询返回结果数组
+	// fields 为所查询表字段信息
+});
+```
+
+其实际执行的 SQL 语句
+	SELECT * FROM sp_order;
+
+#### where() 条件
+``` javascript
+var map = {
+	name: 'Leon',
+	class: 12,
+	order_no: '20160325094353017859'
+};
+order.where( map ).select(function(err, rows, fields){
+
+})
+```
+
+其实际执行的 SQL 语句
+	SELECT * FROM sp_order WHERE ( name = 'Leon' ) AND ( class = 12 ) AND ( order_no = '20160325094353017859' );
+
+若设置 where() 参数中 _logic 属性，则可更改逻辑连接词
+
+``` javascript
+var map = {
+	name: 'Leon',
+	class: 12,
+	order_no: '20160325094353017859'，
+	_logic: 'OR' // 默认为 AND
+};
+order.where( map ).select(function(err, rows, fields){
+
+})
+```
+
+其实际执行的 SQL 语句
+	SELECT * FROM sp_order WHERE ( name = 'Leon' ) OR ( class = 12 ) OR ( order_no = '20160325094353017859' );
