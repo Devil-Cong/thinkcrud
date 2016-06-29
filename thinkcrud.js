@@ -193,7 +193,8 @@ module.exports = function(db, table) {
                     throw conErr;
                 }
                 connection.query(sql, data, function(err, rows){
-                    connection.release();
+                    connection.release();                    
+                    resetSqlOption();
                     next ? next(err, rows) : '';      
                 });
             });
@@ -223,6 +224,7 @@ module.exports = function(db, table) {
                     }
                     connection.query(sql, function(err, rows){
                         connection.release();
+                        resetSqlOption();
                         next ? next(err, rows) : '';       
                     });
                 });
@@ -232,8 +234,10 @@ module.exports = function(db, table) {
             init(function(){
                 if( data && ('' !== PRI) && data.hasOwnProperty(PRI) ){
                     condition = ' WHERE ' + PRI + ' = ' + parseValue(data[PRI]);
-                }else{
+                }else if('' !== sqlOptions.whereStr){
                     condition = sqlOptions.whereStr;
+                }else{
+                    throw new Error();
                 }
                 sql = 'DELETE FROM ' + table + condition + ( ('' !== sqlOptions.orderStr) ? sqlOptions.orderStr : '')
                     + ( ('' !== sqlOptions.limitStr) ? sqlOptions.limitStr : '') + ';';
@@ -243,6 +247,7 @@ module.exports = function(db, table) {
                     }
                     connection.query(sql, function(err, rows){
                         connection.release();
+                        resetSqlOption();
                         next ? next(err, rows) : '';
                     });
                 });

@@ -204,7 +204,7 @@ order.update(data, function(err, result){
 
 	UPADTE sp_order SET name = 'Leon', class = 12, order_no = '20160325094353017859' WHERE id = 20;
 
-当使用 update() 更新数据的时候，若传递的参数中带有主键，则有限将主键作为更新数据的条件。
+当使用 update() 更新数据的时候，若传递的参数中带有主键，则优先将主键作为更新数据的条件。
 或者也可通过 where()、order()、limit() 来组合更新数据的条件，限制更新数据的条数。
 
 ``` javascript
@@ -212,12 +212,51 @@ var data = {
 	order_no: '20160325094353017859'	
 };
 order.where({ class: 12 }).order({ id: 'DESC' }).limit(2).update(data, function(err, result){
-	// err 为 SQL 执行错误
-	// result 为执行返回结果，包括影响行数等
+
 });
 ```
 
 其实际执行的 SQL 语句
 
 	UPADTE sp_order SET order_no = '20160325094353017859' WHERE class = 12 ORDER BY id DESC LIMIT 2;
+
+#### delete() 删除
+
+``` javascript
+var data = {
+	id: 20 // 主键	
+};
+order.delete(data, function(err, result){
+	// err 为 SQL 执行错误
+	// result 为执行返回结果，包括删除行数等
+});
+```
+
+其实际执行的 SQL 语句
+
+	DELETE FROM sp_order WHERE id = 20;
+
+当使用 delete() 删除数据的时候，若传递参数带有主键的时候，则优先使用主键作为删除数据的条件。
+同样也可通过 where()、order()、limit() 来组合删除数据的条件，限制删除数据的条数。
+
+``` javascript
+order.where({ class: 12 }).order({ id: 'DESC' }).limit(2).delete(null, function(err, result){
+	// delete() 第一个参数传递 null
+});
+```
+
+其实际执行的 SQL 语句
+
+	DELETE FROM sp_order WHERE class = 12 ORDER BY id DESC LIMIT 2;
+
+为了避免错删数据，如果没有传入任何条件进行删除操作的话，不会执行删除操作，同时还会报错。
+
+``` javascript
+order.delete(null, function(err, result){
+	// 此时将报错
+});
+
+### 最后
+
+	如果有发现什么 Bug 或者问题，欢迎大家 Issues(/issues) 或者 Pull requests[/pulls]
 
