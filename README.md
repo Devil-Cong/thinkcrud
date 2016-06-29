@@ -37,7 +37,7 @@ order.select(function(err, rows, fields){
 
 其实际执行的 SQL 语句
 
-		SELECT * FROM sp_order;
+	SELECT * FROM sp_order;
 
 #### where() 条件
 ``` javascript
@@ -119,7 +119,7 @@ order.where( map ).select(function(err, rows, fields){
 
 其实际执行的 SQL 语句
 
-	SELECT * FROM sp_order WHERE ( age < 20 ) OR ( sex <> '男' ) OR ( good_id = 7 AND count > 200 );
+	SELECT * FROM sp_order WHERE ( age < 20 ) OR ( good_id = 7 AND count > 200 );
 
 #### field() 字段过滤
 
@@ -141,6 +141,26 @@ order.field('name, MAX(age)').where( map ).select(function(err, rows, fields){
 
 #### limit()、order()、group()
 
+``` javascript
+order.order('name DESC').group('class').limit(2).select(function(err, rows, fields){
 
+})
+```
 
+其实际执行的 SQL 语句
+
+	SELECT * FROM sp_order GROUP BY class ORDER BY name DESC LIMIT 2;
+
+在 select() 执行之前，limit()、order()、group() 没有执行顺序要求。
+另一种用法
+
+``` javascript
+order.order({ name : 'DESC', id : 'ASC' }).group('class').limit(2, 6).select(function(err, rows, fields){
+
+})
+```
+
+其实际执行的 SQL 语句
+
+	SELECT * FROM sp_order GROUP BY class ORDER BY name DESC, id ASC LIMIT 2, 6;
 
