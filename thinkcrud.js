@@ -49,7 +49,7 @@ module.exports = function(db, table) {
         }
     },
     debugLog = function(sql){
-        console.log(new Date(), sql);
+        console.log('SQL:' + sql);
     },
     resetSqlOption = function(){
         for(var prop in sqlOptions){
@@ -188,7 +188,7 @@ module.exports = function(db, table) {
                 }
                 connection.query(sql, function(err, rows, fields){
                     connection.release();
-                    debugOption ? debugLog() : '';
+                    debugOption ? debugLog(sql) : '';
                     resetSqlOption();
                     next ? next(err, rows, fields) : '';
                 });
@@ -203,7 +203,7 @@ module.exports = function(db, table) {
                 }
                 connection.query(sql, data, function(err, rows){
                     connection.release();   
-                    debugOption ? debugLog() : '';                 
+                    debugOption ? debugLog(sql) : '';                 
                     resetSqlOption();
                     next ? next(err, rows) : '';      
                 });
@@ -234,7 +234,7 @@ module.exports = function(db, table) {
                     }
                     connection.query(sql, function(err, rows){
                         connection.release();
-                        debugOption ? debugLog() : '';
+                        debugOption ? debugLog(sql) : '';
                         resetSqlOption();
                         next ? next(err, rows) : '';       
                     });
@@ -258,7 +258,7 @@ module.exports = function(db, table) {
                     }
                     connection.query(sql, function(err, rows){
                         connection.release();                        
-                        debugOption ? debugLog() : '';
+                        debugOption ? debugLog(sql) : '';
                         resetSqlOption();
                         next ? next(err, rows) : '';
                     });
