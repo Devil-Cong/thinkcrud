@@ -2,6 +2,7 @@
 
 module.exports = function(db, table) {
     var PRI = '',
+    debugOption = false,
     exps = {
         eq          : '=',
         neq         : '<>',
@@ -46,6 +47,9 @@ module.exports = function(db, table) {
         }else{
             next();
         }
+    },
+    debugLog = function(sql){
+        console.log(new Date(), sql);
     },
     resetSqlOption = function(){
         for(var prop in sqlOptions){
@@ -107,6 +111,10 @@ module.exports = function(db, table) {
     	}
     };
     return {
+        debug : function(option){
+            debugOption = option;
+            return this;
+        },
     	field : function(fields){
     		if(isString(fields) && '' !== fields){
     			sqlOptions.fieldsStr = fields;
@@ -180,6 +188,7 @@ module.exports = function(db, table) {
                 }
                 connection.query(sql, function(err, rows, fields){
                     connection.release();
+                    debugOption ? debugLog() : '';
                     resetSqlOption();
                     next ? next(err, rows, fields) : '';
                 });
@@ -193,7 +202,8 @@ module.exports = function(db, table) {
                     throw conErr;
                 }
                 connection.query(sql, data, function(err, rows){
-                    connection.release();                    
+                    connection.release();   
+                    debugOption ? debugLog() : '';                 
                     resetSqlOption();
                     next ? next(err, rows) : '';      
                 });
@@ -224,6 +234,7 @@ module.exports = function(db, table) {
                     }
                     connection.query(sql, function(err, rows){
                         connection.release();
+                        debugOption ? debugLog() : '';
                         resetSqlOption();
                         next ? next(err, rows) : '';       
                     });
@@ -246,7 +257,8 @@ module.exports = function(db, table) {
                         throw conErr;
                     }
                     connection.query(sql, function(err, rows){
-                        connection.release();
+                        connection.release();                        
+                        debugOption ? debugLog() : '';
                         resetSqlOption();
                         next ? next(err, rows) : '';
                     });
