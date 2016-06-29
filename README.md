@@ -259,5 +259,5 @@ order.delete(null, function(err, result){
 
 ### 最后
 
-	如果有发现什么 Bug 或者问题，欢迎大家 [Issues](/issues) 或者 [Pull requests](/pulls)
+	如果有发现什么 Bug 或者问题，欢迎大家 [Issues](https://github.com/Devil-Cong/thinkcrud/issues) 或者 [Pull requests](https://github.com/Devil-Cong/thinkcrud/pulls)
 
