@@ -48,7 +48,7 @@ var map = {
 };
 order.where( map ).select(function(err, rows, fields){
 
-})
+});
 ```
 
 其实际执行的 SQL 语句
@@ -66,7 +66,7 @@ var map = {
 };
 order.where( map ).select(function(err, rows, fields){
 
-})
+});
 ```
 
 其实际执行的 SQL 语句
@@ -97,7 +97,7 @@ var map = {
 };
 order.where( map ).select(function(err, rows, fields){
 
-})
+});
 ```
 
 其实际执行的 SQL 语句
@@ -114,7 +114,7 @@ var map = {
 };
 order.where( map ).select(function(err, rows, fields){
 
-})
+});
 ```
 
 其实际执行的 SQL 语句
@@ -132,7 +132,7 @@ var map = {
 };
 order.field('name, MAX(age)').where( map ).select(function(err, rows, fields){
 
-})
+});
 ```
 
 其实际执行的 SQL 语句
@@ -144,7 +144,7 @@ order.field('name, MAX(age)').where( map ).select(function(err, rows, fields){
 ``` javascript
 order.order('name DESC').group('class').limit(2).select(function(err, rows, fields){
 
-})
+});
 ```
 
 其实际执行的 SQL 语句
@@ -155,12 +155,69 @@ order.order('name DESC').group('class').limit(2).select(function(err, rows, fiel
 另一种用法
 
 ``` javascript
-order.order({ name : 'DESC', id : 'ASC' }).group('class').limit(2, 6).select(function(err, rows, fields){
+order.order({ name: 'DESC', id: 'ASC' }).group('class').limit(2, 6).select(function(err, rows, fields){
 
-})
+});
 ```
 
 其实际执行的 SQL 语句
 
 	SELECT * FROM sp_order GROUP BY class ORDER BY name DESC, id ASC LIMIT 2, 6;
+
+#### insert() 插入
+
+``` javascript
+var data = {
+	name: 'Leon',
+	class: 12,
+	order_no: '20160325094353017859'	
+};
+order.insert(data, function(err, result){
+	// err 为 SQL 执行错误
+	// result 为执行返回结果，新增数据的主键等
+});
+```
+
+其实际执行的 SQL 语句
+
+	INSERT INTO sp_order ( name, class, order_no ) VALUES ( 'Leon', 12, '20160325094353017859' );
+
+insert() 这里没有做其它的 SQL 语句拼接，而是直接采用 mysql 原本的 insert 方式执行。
+下个版本会增加获取对应执行 SQL 语句的功能，到时候再一起改进这一块。
+
+#### update() 更新
+
+``` javascript
+var data = {
+	id: 20, // 主键
+	name: 'Leon',
+	class: 12,
+	order_no: '20160325094353017859'	
+};
+order.update(data, function(err, result){
+	// err 为 SQL 执行错误
+	// result 为执行返回结果，包括影响行数等
+});
+```
+
+其实际执行的 SQL 语句
+
+	UPADTE sp_order SET name = 'Leon', class = 12, order_no = '20160325094353017859' WHERE id = 20;
+
+当使用 update() 更新数据的时候，若传递的参数中带有主键，则有限将主键作为更新数据的条件。
+或者也可通过 where()、order()、limit() 来组合更新数据的条件，限制更新数据的条数。
+
+``` javascript
+var data = {
+	order_no: '20160325094353017859'	
+};
+order.where({ class: 12 }).order({ id: 'DESC' }).limit(2).update(data, function(err, result){
+	// err 为 SQL 执行错误
+	// result 为执行返回结果，包括影响行数等
+});
+```
+
+其实际执行的 SQL 语句
+
+	UPADTE sp_order SET order_no = '20160325094353017859' WHERE class = 12 ORDER BY id DESC LIMIT 2;
 
