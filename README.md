@@ -24,6 +24,11 @@ var order = thinkcrud(pool, 'sp_order'); // sp_order 是数据库对应的表名
 ```
 
 这样子就简单地将一个表转换为一个对应的操作对象。
+如有需要，可开启 debug 模式， console 会打印每次执行的 SQL 语句。
+
+``` javascript
+var order = thinkcrud(pool, 'sp_order').debug(true); // 默认是 false
+```
 
 #### select() 查询
 
