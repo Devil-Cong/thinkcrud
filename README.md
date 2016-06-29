@@ -255,8 +255,9 @@ order.where({ class: 12 }).order({ id: 'DESC' }).limit(2).delete(null, function(
 order.delete(null, function(err, result){
 	// 此时将报错
 });
+```
 
 ### 最后
 
-	如果有发现什么 Bug 或者问题，欢迎大家 Issues(/issues) 或者 Pull requests[/pulls]
+	如果有发现什么 Bug 或者问题，欢迎大家 [Issues](/issues) 或者 [Pull requests](/pulls)
 
